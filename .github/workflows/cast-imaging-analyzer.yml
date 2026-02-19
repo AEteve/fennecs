@@ -2,13 +2,16 @@ name: Imaging Cloud Analyzer Action
 env:
   version: 1
 on:
-  push:
+  pull_request:
+    types:
+      - closed
     branches:
       - master
       - main
   workflow_dispatch:
 jobs:
   run-imaging-cloud-analyzer:
+    if: github.event.pull_request.merged == true || github.event_name == 'workflow_dispatch'
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
